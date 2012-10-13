@@ -1,5 +1,5 @@
 # Description #
-This project is a fork from [link]http://thebestsolution.org/zend-login-with-facebook-twitter-and-google/ 
+This project is a fork from [this repo](http://thebestsolution.org/zend-login-with-facebook-twitter-and-google/)
 
 # Instructions #
 
@@ -11,17 +11,17 @@ git clone git://github.com/jimmynewtron/MultiAuth
 ~~~
 
 ### Step 2 ###
-* Move the MultiAuth folder to your Zend Application library folder
-
+* Move the MultiAuth folder to your Zend Application library folder:
+`(app root)/library/MultiAuth`
 
 ### Step 3 ###
 * Facebook API settings
 
 ~~~
-facebook.client_id      = "xxxx"
-facebook.client_secret  = "xxxx"
-facebook.redirect_uri   = "http://YOUR_HOSTNAME/AUTH_URL"
-facebook.scope          = "email"
+auth.facebook.client_id      = "xxxx"
+auth.facebook.client_secret  = "xxxx"
+auth.facebook.redirect_uri   = "http://YOUR_HOSTNAME/AUTH_URL"
+auth.facebook.scope          = "email"
 ~~~
 
 The `client_id` and `client_secret` can be found at https://developers.facebook.com/apps
@@ -33,10 +33,12 @@ The different scopes can be found at https://developers.facebook.com/docs/refere
 * Google API settings 
 
 ~~~
-google.client_id        = "xxxx"
-google.client_secret    = "xxxx"
-google.redirect_uri     = "http://YOUR_HOSTNAME/AUTH_URL"
-google.scope            = "https://www.googleapis.com/auth/userinfo.profile"
+auth.google.client_id        = "xxxx"
+auth.google.client_secret    = "xxxx"
+auth.google.redirect_uri     = "http://YOUR_HOSTNAME/AUTH_URL"
+auth.google.scope[]           = "https://www.googleapis.com/auth/userinfo.email"
+auth.google.scope[]           = "https://www.googleapis.com/auth/userinfo.profile"
+auth.google.scope[]           = "https://www.googleapis.com/auth/docs"
 ~~~
 
 The `client_id` and `client_secret` can be found at https://code.google.com/apis/console
@@ -57,6 +59,21 @@ The `consumerKey` and `consumerSecret` can be found at https://dev.twitter.com/a
 
 On the Twitter [site](https://dev.twitter.com/apps) set the Callback URL to http://YOUR_HOSTNAME/AUTH_URL
 
+* Basic authentication settings
+
+~~~
+auth.basic.identityKey      = "email"
+auth.basic.credentialKey    = "password"
+auth.basic.providerClass    = "Application\Service\ProfileService"
+~~~
+
+`identityKey` and `credentialKey` are the variable names that came from the front controller request object.
+
+E.g.: you have a form with 2 fields, `email` and `password`. The lib will read the field values that came via GET/POST and authenticate using the provider class
+
+The basic authentication will create an instance of `providerClass`, and call `$providerClass::authenticate($identity, $credential)`.
+The value returned from `authenticate()` will become the identity returned later in the `Zend_Auth_Result` object
+
 ## Step 4 ##
 * Authenticating:
 
@@ -64,8 +81,10 @@ Inside your Zend controller, get a MultiAuth instance and authenticate:
 
 ~~~
 $auth = \MultiAuth\Auth::getInstance();
-$auth->authenticate(\MultiAuth\Provider::ADAPTER_FACEBOOK);
+$result = $auth->authenticate(\MultiAuth\Provider::ADAPTER_FACEBOOK);
 ~~~
+
+`$result` is a `Zend_Auth_Result` instance with a identity returned
 
 Use one of the valid auth constants defined in `MultiAuth\Provider`:
 - `Provider::ADAPTER_FACEBOOK`
@@ -81,3 +100,4 @@ Use one of the valid auth constants defined in `MultiAuth\Provider`:
 The original project is focused in show how to perform multiple authentications in the same request and interact with multi APIs (e.g. to post in a Facebook wall and tweet).
 
 This fork changed some class to turn it into a library that authenticate within an social network API, or authenticates using form data (e.g. email/password)
+
