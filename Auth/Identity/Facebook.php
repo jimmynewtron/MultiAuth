@@ -5,15 +5,15 @@ use \MultiAuth\Resource\Facebook as Resource;
 
 class Facebook extends Generic {
     
-	protected $_api;
+    /**
+     * Instance of Resource
+     * @var \MultiAuth\Resource\Facebook
+     */
+	protected $api;
 
 	public function __construct($token) {
-		$this->_api = new Resource($token);
-		$this->_name = 'facebook';
-		$this->_id = $this->_api->getId();
-	}
-
-	public function getApi() {
-		return $this->_api;
-	}
+		$this->api = new Resource($token);
+		$this->name = 'facebook';
+		$this->id = $this->api->getId();
+    }
 }

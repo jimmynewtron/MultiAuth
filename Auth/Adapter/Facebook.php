@@ -73,11 +73,10 @@ class Facebook implements AdapterInterface {
         $this->options['code'] = $requestToken;
         
         // catch errors while accessing the API (e.g. no internet access)
-        #try {
-            $accessToken = Consumer::getAccessToken($this->options);
-            $accessToken['timestamp'] = time();
-            $this->accessToken = $accessToken;
-        #} catch (\Exception $e) {}
+        $accessToken = Consumer::getAccessToken($this->options);
+        $accessToken['timestamp'] = time();
+        $this->accessToken = $accessToken;
+        
         return $this;
     }
     

@@ -55,13 +55,13 @@ class Basic implements AdapterInterface {
         
         $params = $this->loadParams();
         $profile = $provider->authenticate($params['identity'], $params['credential']);
-
+        
         $result = array();
         $result['code'] = Result::FAILURE;
         $result['identity'] = null;
         $result['messages'] = array();
         
-        if ($profile) {
+        if ($profile !== null) {
             $result['code'] = Result::SUCCESS;
             $result['identity'] = new Identity($profile);
         }

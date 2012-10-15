@@ -120,7 +120,6 @@ class Auth {
      */
     public function authenticate($adapterName) {
         $result = $this->provider->authenticate($adapterName);
-        
         $identity = $result->getIdentity();
         
         if(null === $identity) {
@@ -137,7 +136,7 @@ class Auth {
             $currentIdentity = new Container();
         }
         
-        $currentIdentity->add($result->getIdentity());
+        $currentIdentity->add($identity);
     
         if ($this->hasIdentity()) {
            $this->clearIdentity();

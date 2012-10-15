@@ -11,19 +11,31 @@ namespace MultiAuth\Auth\Identity;
  * @abstract
  */
 abstract class Generic {
+    
 	protected $id;
 	protected $name;
+    protected $api;
 
-	public function __construct($name, $id) {
-		$this->name = $name;
-		$this->id = $id;
+	public function __construct() {
+		//$this->name = $name;
+		//$this->id = $id;
 	}
 
+    /**
+     * Get identity name (google, facebook, twitter or basic)
+     */
 	public function getName() {
 		return $this->name;
 	}
 
 	public function getId() {
 		return $this->id;
+	}
+    
+    /**
+     * Get interface to identity (Resource)
+     */
+    public function getApi() {
+		return $this->api;
 	}
 }

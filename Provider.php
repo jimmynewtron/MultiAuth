@@ -78,6 +78,9 @@ class Provider {
             case self::ADAPTER_TWITTER:
                 return Twitter::getAuthorizationUrl($this->getOptions(self::ADAPTER_TWITTER));
                 break;
+            
+            default:
+                throw new \Exception('Provider not supported!');
         }
     }
     

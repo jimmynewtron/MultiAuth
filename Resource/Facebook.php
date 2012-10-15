@@ -3,8 +3,7 @@ namespace MultiAuth\Resource;
 
 use \MultiAuth\OAuth2\Consumer as Consumer;
 
-class Facebook
-{
+class Facebook {
     protected $_accessToken;
 
     protected $data = array();
