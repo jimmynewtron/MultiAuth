@@ -69,10 +69,10 @@ auth.basic.providerClass    = "Application\Service\ProfileService"
 
 `identityKey` and `credentialKey` are the variable names that came from the front controller request object.
 
-E.g.: you have a form with 2 fields, `email` and `password`. The lib will read the field values that came via GET/POST and authenticate using the provider class
+E.g.: you have a form with 2 fields, `email` and `password`. The lib will read the field values that came via GET/POST and authenticate using the provider class.
 
 The basic authentication will create an instance of `providerClass`, and call `$providerClass::authenticate($identity, $credential)`.
-The value returned from `authenticate()` will become the identity returned later in the `Zend_Auth_Result` object
+The value returned from `authenticate()` will become the identity returned later in the `Zend_Auth_Result` object.
 
 ## Step 4 ##
 * Authenticating:
@@ -84,7 +84,7 @@ $auth = \MultiAuth\Auth::getInstance();
 $result = $auth->authenticate(\MultiAuth\Provider::ADAPTER_FACEBOOK);
 ~~~
 
-`$result` is a `Zend_Auth_Result` instance with a identity returned
+`$result` is a `Zend_Auth_Result` instance with a identity returned.
 
 Use one of the valid auth constants defined in `MultiAuth\Provider`:
 - `Provider::ADAPTER_FACEBOOK`
@@ -99,5 +99,5 @@ Use one of the valid auth constants defined in `MultiAuth\Provider`:
 
 The original project is focused in show how to perform multiple authentications in the same request and interact with multi APIs (e.g. to post in a Facebook wall and tweet).
 
-This fork changed some class to turn it into a library that authenticate within an social network API, or authenticates using form data (e.g. email/password)
+This fork changed some class to turn it into a library that authenticate within an social network API, or authenticates using form data (e.g. email/password).
 
